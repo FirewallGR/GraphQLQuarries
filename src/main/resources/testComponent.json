@@ -1,0 +1,8 @@
+{
+  "id": "99671077-5962-489a-adeb-a6f9867b05ae",
+  "name": "test",
+  "descriptionShort": "test",
+  "guid": "7996CD7FC112475D8C8F374579D84205",
+  "lastVersion": " ",
+  "versions": "[{\"date\":\"2023-10-25\",\"size\":\"\",\"name\":\"1\",\"files\":[{\"size\":3368321,\"remoteS3Key\":\"63e77d28cd4fec0aab4d7c30422f8659d2457802399eb4ce0cafef61c682de37\",\"Architecture\":\"x86\",\"uploadDate\":\"2023-10-25T16:37:18.332Z\",\"OS\":\"Windows\",\"name\":\"surefire-3.1.2-source-release.zip\",\"deliveryType\":\"binary\",\"fileId\":\"63e77d28cd4f\"}],\"text\":null,\"user\":\"meowmure\"}]"
+}
