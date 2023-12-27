@@ -1,0 +1,1211 @@
+#SCHEMA AND DEPENDENCIES
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type Mutation {
+    createArchitecture(condition: ModelArchitectureConditionInput, input: CreateArchitectureInput!): Architecture
+    createComponent(condition: ModelComponentConditionInput, input: CreateComponentInput!): Component
+    createComponentSubscription(condition: ModelComponentSubscriptionConditionInput, input: CreateComponentSubscriptionInput!): ComponentSubscription
+    createOrganization(condition: ModelOrganizationConditionInput, input: CreateOrganizationInput!): Organization
+    createOs(condition: ModelOsConditionInput, input: CreateOsInput!): Os
+    createRole(condition: ModelRoleConditionInput, input: CreateRoleInput!): Role
+    createTeam(condition: ModelTeamConditionInput, input: CreateTeamInput!): Team
+    createUser(condition: ModelUserConditionInput, input: CreateUserInput!): User
+    deleteArchitecture(condition: ModelArchitectureConditionInput, input: DeleteArchitectureInput!): Architecture
+    deleteComponent(condition: ModelComponentConditionInput, input: DeleteComponentInput!): Component
+    deleteComponentSubscription(condition: ModelComponentSubscriptionConditionInput, input: DeleteComponentSubscriptionInput!): ComponentSubscription
+    deleteOrganization(condition: ModelOrganizationConditionInput, input: DeleteOrganizationInput!): Organization
+    deleteOs(condition: ModelOsConditionInput, input: DeleteOsInput!): Os
+    deleteRole(condition: ModelRoleConditionInput, input: DeleteRoleInput!): Role
+    deleteTeam(condition: ModelTeamConditionInput, input: DeleteTeamInput!): Team
+    deleteUser(condition: ModelUserConditionInput, input: DeleteUserInput!): User
+    updateArchitecture(condition: ModelArchitectureConditionInput, input: UpdateArchitectureInput!): Architecture
+    updateComponent(condition: ModelComponentConditionInput, input: UpdateComponentInput!): Component
+    updateComponentSubscription(condition: ModelComponentSubscriptionConditionInput, input: UpdateComponentSubscriptionInput!): ComponentSubscription
+    updateOrganization(condition: ModelOrganizationConditionInput, input: UpdateOrganizationInput!): Organization
+    updateOs(condition: ModelOsConditionInput, input: UpdateOsInput!): Os
+    updateOwnerField(userId: String): String
+    updateRole(condition: ModelRoleConditionInput, input: UpdateRoleInput!): Role
+    updateTeam(condition: ModelTeamConditionInput, input: UpdateTeamInput!): Team
+    updateUser(condition: ModelUserConditionInput, input: UpdateUserInput!): User
+}
+type Subscription {
+    onCreateArchitecture(filter: ModelSubscriptionArchitectureFilterInput): Architecture
+    onCreateComponent(filter: ModelSubscriptionComponentFilterInput, organizationID: String, userCreated: String): Component
+    onCreateComponentSubscription(buyerOrganizationID: String, filter: ModelSubscriptionComponentSubscriptionFilterInput): ComponentSubscription
+    onCreateOrganization(filter: ModelSubscriptionOrganizationFilterInput, organizationID: String): Organization
+    onCreateOs(filter: ModelSubscriptionOsFilterInput): Os
+    onCreateRole(filter: ModelSubscriptionRoleFilterInput, organizationID: String): Role
+    onCreateTeam(filter: ModelSubscriptionTeamFilterInput, organizationID: String): Team
+    onCreateUser(filter: ModelSubscriptionUserFilterInput, organizationID: String, owner: String): User
+    onDeleteArchitecture(filter: ModelSubscriptionArchitectureFilterInput): Architecture
+    onDeleteComponent(filter: ModelSubscriptionComponentFilterInput, organizationID: String, userCreated: String): Component
+    onDeleteComponentSubscription(buyerOrganizationID: String, filter: ModelSubscriptionComponentSubscriptionFilterInput): ComponentSubscription
+    onDeleteOrganization(filter: ModelSubscriptionOrganizationFilterInput, organizationID: String): Organization
+    onDeleteOs(filter: ModelSubscriptionOsFilterInput): Os
+    onDeleteRole(filter: ModelSubscriptionRoleFilterInput, organizationID: String): Role
+    onDeleteTeam(filter: ModelSubscriptionTeamFilterInput, organizationID: String): Team
+    onDeleteUser(filter: ModelSubscriptionUserFilterInput, organizationID: String, owner: String): User
+    onUpdateArchitecture(filter: ModelSubscriptionArchitectureFilterInput): Architecture
+    onUpdateComponent(filter: ModelSubscriptionComponentFilterInput, organizationID: String, userCreated: String): Component
+    onUpdateComponentSubscription(buyerOrganizationID: String, filter: ModelSubscriptionComponentSubscriptionFilterInput): ComponentSubscription
+    onUpdateOrganization(filter: ModelSubscriptionOrganizationFilterInput, organizationID: String): Organization
+    onUpdateOs(filter: ModelSubscriptionOsFilterInput): Os
+    onUpdateRole(filter: ModelSubscriptionRoleFilterInput, organizationID: String): Role
+    onUpdateTeam(filter: ModelSubscriptionTeamFilterInput, organizationID: String): Team
+    onUpdateUser(filter: ModelSubscriptionUserFilterInput, organizationID: String, owner: String): User
+}
+
+
+#Querries
+type Query {
+    componentByGuidOrganization(filter: ModelComponentFilterInput, guid: String!, limit: Int, nextToken: String, organizationID: ModelIDKeyConditionInput, sortDirection: ModelSortDirection): ModelComponentConnection
+    componentByOrganizationByTeam(filter: ModelComponentFilterInput, limit: Int, nextToken: String, organizationID: ID!, sortDirection: ModelSortDirection, teamID: ModelIDKeyConditionInput): ModelComponentConnection
+    getArchitecture(id: ID!): Architecture
+    getComponent(id: ID!): Component
+    getComponentSubscription(id: ID!): ComponentSubscription
+    getOrganization(id: ID!): Organization
+    getOs(id: ID!): Os
+    getRole(id: ID!): Role
+    getSignedUrl(componentID: String, fileKey: String): String
+    getTeam(id: ID!): Team
+    getUser(id: ID!): User
+    listArchitectures(filter: ModelArchitectureFilterInput, limit: Int, nextToken: String): ModelArchitectureConnection
+    listComponentSubscriptions(filter: ModelComponentSubscriptionFilterInput, limit: Int, nextToken: String): ModelComponentSubscriptionConnection
+    listComponents(filter: ModelComponentFilterInput, limit: Int, nextToken: String): ModelComponentConnection
+    listOrganizations(filter: ModelOrganizationFilterInput, limit: Int, nextToken: String): ModelOrganizationConnection
+    listOs(filter: ModelOsFilterInput, limit: Int, nextToken: String): ModelOsConnection
+    listRoles(filter: ModelRoleFilterInput, limit: Int, nextToken: String): ModelRoleConnection
+    listTeams(filter: ModelTeamFilterInput, limit: Int, nextToken: String): ModelTeamConnection
+    listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
+    rolesByOrganization(filter: ModelRoleFilterInput, limit: Int, nextToken: String, organizationID: ID!, sortDirection: ModelSortDirection): ModelRoleConnection
+    salesByOrganization(componentID: ModelIDKeyConditionInput, filter: ModelComponentSubscriptionFilterInput, limit: Int, nextToken: String, sellerOrganizationID: ID!, sortDirection: ModelSortDirection): ModelComponentSubscriptionConnection
+    subscriptionsByOrganization(buyerOrganizationID: ID!, componentID: ModelIDKeyConditionInput, filter: ModelComponentSubscriptionFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelComponentSubscriptionConnection
+    teamByOrganization(filter: ModelTeamFilterInput, limit: Int, nextToken: String, organizationID: ID!, sortDirection: ModelSortDirection): ModelTeamConnection
+}
+
+type Component {
+    certified: Boolean!
+    cloudList: String
+    comments: String
+    createdAt: String!
+    dateCreated: String
+    dependencies: [Dependency]
+    descriptionLong: String
+    descriptionShort: String
+    free: Boolean
+    guid: String!
+    id: ID!
+    idl: String
+    lastVersion: String
+    logoUrl: String
+    minCpu: Int
+    minHdd: Float
+    minRam: Float
+    name: String!
+    organizationID: ID
+    owners: [ID]
+    priceCurrency: Currency
+    priceUnit: PriceUnit
+    priceValue: Float
+    programLanguage: String
+    published: Boolean!
+    softwareList: String
+    supportInfo: String
+    tags: String
+    teamID: ID
+    type: [Type]!
+    updatedAt: String!
+    useCategory: [UseCategory]!
+    userCreated: ID
+    versions: String
+}
+
+#Component's dependencies
+type Organization {
+    createdAt: String!
+    description: String
+    id: ID!
+    name: String!
+    organizationID: ID!
+    owners: [ID]
+    updatedAt: String!
+}
+
+type Os {
+    createdAt: String
+    id: ID!
+    name: String!
+    updatedAt: String
+}
+
+type Architecture {
+    createdAt: String
+    id: ID!
+    name: String!
+    updatedAt: String
+}
+
+type Dependency {
+    name: String
+    version: String
+}
+
+enum Currency {
+    EUR
+    RUR
+    USD
+}
+
+enum PriceUnit {
+    FREE
+    MONTH
+    ONETIME
+    TRANSACTION
+    YEAR
+}
+
+enum Type {
+    APPLICATION
+    DEVTOOL
+    DRIVER
+    KERNEL
+    MIDDLEWARE
+    PROTOCOL
+    SYSTEM
+    UTILITY
+}
+
+enum UseCategory {
+    AI
+    AUTOMOTIVE
+    DATABASE
+    IOT
+    MATH_ALGORITHMS
+    NETWORK
+    OFFICE
+    ROBOTICS
+    TELECOM
+    UI
+    VIRTUALIZATION
+}
+
+enum UserStatus {
+    ACTIVE
+    ARCHIVED
+    DISABLED
+    INVITED
+    SUSPENDED
+}
+
+#CONNECTIONS AND DEPENDENCIES
+
+type ModelArchitectureConnection {
+    items: [Architecture]!
+    nextToken: String
+}
+
+type ModelComponentConnection {
+    items: [Component]!
+    nextToken: String
+}
+
+type ModelComponentSubscriptionConnection{
+    items: [ComponentSubscription]!
+    nextToken: String
+}
+
+type ComponentSubscription  {
+    buyerOrganizationID: ID!
+    componentID: ID!
+    createdAt: String!
+    date: String
+    free: Boolean
+    id: ID!
+    owners: [ID]!
+    priceCurrency: Currency
+    priceUnit: PriceUnit
+    priceValue: Float
+    sellerOrganizationID: ID!
+    updatedAt: String!
+    user: ID!
+}
+
+type ModelOrganizationConnection{
+    items: [Organization]!
+    nextToken: String
+}
+
+type ModelOsConnection  {
+    items: [Os]!
+    nextToken: String
+}
+
+type ModelRoleConnection {
+    items: [Role]!
+    nextToken: String
+}
+
+type Role {
+    changeOwnerRights: Boolean
+    createdAt: String
+    id: ID!
+    isOwner: Boolean
+    manageComponentRights: Boolean
+    manageUsersRights: Boolean
+    name: String!
+    organizationID: ID!
+    owners: [ID]
+    publishRights: Boolean
+    shareRights: Boolean
+    status: UserStatus
+    updatedAt: String
+    viewRights: Boolean
+}
+
+type ModelTeamConnection {
+    items: [Team]!
+    nextToken: String
+}
+
+type Team {
+    admins: String
+    components(filter: ModelComponentFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelComponentConnection
+    createdAt: String
+    description: String
+    id: ID!
+    isAdmin: Boolean
+    logo: String
+    name: String!
+    organizationID: ID!
+    owners: [ID]!
+    roles: String
+    teamAllowedComponentsIDs: [ID]
+    updatedAt: String
+    users: String
+}
+
+type ModelUserConnection  {
+    items: [User]!
+    nextToken: String
+}
+
+type User {
+    backupEmail: String
+    components(filter: ModelComponentFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelComponentConnection
+    createdAt: String
+    description: String
+    email: String!
+    firstName: String
+    id: ID!
+    lastName: String
+    lastVisit: String
+    logo: String
+    name: String!
+    organizationID: ID!
+    owner: ID
+    phone: String
+    status: UserStatus
+    teamID: ID
+    teams(filter: ModelTeamFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelTeamConnection
+    teamsList: [ID]
+    updatedAt: String
+    username: String!
+    watchedComponents: [ID]
+}
+
+#Inputs
+input CreateArchitectureInput {
+    createdAt: String
+    id: ID
+    name: String!
+    updatedAt: String
+}
+
+input CreateComponentInput {
+    certified: Boolean!
+    cloudList: String
+    comments: String
+    dateCreated: String
+    dependencies: [DependencyInput]
+    descriptionLong: String
+    descriptionShort: String
+    free: Boolean
+    guid: String!
+    id: ID
+    idl: String
+    lastVersion: String
+    logoUrl: String
+    minCpu: Int
+    minHdd: Float
+    minRam: Float
+    name: String!
+    organizationID: ID
+    owners: [ID]
+    priceCurrency: Currency
+    priceUnit: PriceUnit
+    priceValue: Float
+    programLanguage: String
+    published: Boolean!
+    softwareList: String
+    supportInfo: String
+    tags: String
+    teamID: ID
+    type: [Type]!
+    useCategory: [UseCategory]!
+    userCreated: ID
+    versions: String
+}
+
+input CreateComponentSubscriptionInput {
+    buyerOrganizationID: ID!
+    componentID: ID!
+    date: String
+    free: Boolean
+    id: ID
+    owners: [ID]!
+    priceCurrency: Currency
+    priceUnit: PriceUnit
+    priceValue: Float
+    sellerOrganizationID: ID!
+    user: ID!
+}
+
+input CreateOrganizationInput {
+    description: String
+    id: ID
+    name: String!
+    organizationID: ID!
+    owners: [ID]
+}
+
+input CreateOsInput {
+    createdAt: String
+    id: ID
+    name: String!
+    updatedAt: String
+}
+
+input CreateRoleInput {
+    changeOwnerRights: Boolean
+    createdAt: String
+    id: ID
+    isOwner: Boolean
+    manageComponentRights: Boolean
+    manageUsersRights: Boolean
+    name: String!
+    organizationID: ID!
+    owners: [ID]
+    publishRights: Boolean
+    shareRights: Boolean
+    status: UserStatus
+    updatedAt: String
+    viewRights: Boolean
+}
+
+input CreateTeamInput {
+    admins: String
+    createdAt: String
+    description: String
+    id: ID
+    isAdmin: Boolean
+    logo: String
+    name: String!
+    organizationID: ID!
+    owners: [ID]!
+    roles: String
+    teamAllowedComponentsIDs: [ID]
+    updatedAt: String
+    users: String
+}
+
+input CreateUserInput {
+    backupEmail: String
+    createdAt: String
+    description: String
+    email: String!
+    firstName: String
+    id: ID
+    lastName: String
+    lastVisit: String
+    logo: String
+    name: String!
+    organizationID: ID!
+    owner: ID
+    phone: String
+    status: UserStatus
+    teamID: ID
+    teamsList: [ID]
+    updatedAt: String
+    username: String!
+    watchedComponents: [ID]
+}
+
+input DeleteArchitectureInput {
+    id: ID!
+}
+
+input DeleteComponentInput {
+    id: ID!
+}
+
+input DeleteComponentSubscriptionInput {
+    id: ID!
+}
+
+input DeleteOrganizationInput {
+    id: ID!
+}
+
+input DeleteOsInput {
+    id: ID!
+}
+
+input DeleteRoleInput {
+    id: ID!
+}
+
+input DeleteTeamInput {
+    id: ID!
+}
+
+input DeleteUserInput {
+    id: ID!
+}
+
+input DependencyInput {
+    name: String
+    version: String
+}
+
+input ModelArchitectureConditionInput {
+    and: [ModelArchitectureConditionInput]
+    createdAt: ModelStringInput
+    name: ModelStringInput
+    not: ModelArchitectureConditionInput
+    or: [ModelArchitectureConditionInput]
+    updatedAt: ModelStringInput
+}
+
+input ModelArchitectureFilterInput {
+    and: [ModelArchitectureFilterInput]
+    createdAt: ModelStringInput
+    id: ModelIDInput
+    name: ModelStringInput
+    not: ModelArchitectureFilterInput
+    or: [ModelArchitectureFilterInput]
+    updatedAt: ModelStringInput
+}
+
+input ModelBooleanInput {
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
+    eq: Boolean
+    ne: Boolean
+}
+
+input ModelComponentConditionInput {
+    and: [ModelComponentConditionInput]
+    certified: ModelBooleanInput
+    cloudList: ModelStringInput
+    comments: ModelStringInput
+    dateCreated: ModelStringInput
+    descriptionLong: ModelStringInput
+    descriptionShort: ModelStringInput
+    free: ModelBooleanInput
+    guid: ModelStringInput
+    idl: ModelStringInput
+    lastVersion: ModelStringInput
+    logoUrl: ModelStringInput
+    minCpu: ModelIntInput
+    minHdd: ModelFloatInput
+    minRam: ModelFloatInput
+    name: ModelStringInput
+    not: ModelComponentConditionInput
+    or: [ModelComponentConditionInput]
+    organizationID: ModelIDInput
+    owners: ModelIDInput
+    priceCurrency: ModelCurrencyInput
+    priceUnit: ModelPriceUnitInput
+    priceValue: ModelFloatInput
+    programLanguage: ModelStringInput
+    published: ModelBooleanInput
+    softwareList: ModelStringInput
+    supportInfo: ModelStringInput
+    tags: ModelStringInput
+    teamID: ModelIDInput
+    type: ModelTypeInput
+    useCategory: ModelUseCategoryInput
+    userCreated: ModelIDInput
+    versions: ModelStringInput
+}
+
+input ModelComponentFilterInput {
+    and: [ModelComponentFilterInput]
+    certified: ModelBooleanInput
+    cloudList: ModelStringInput
+    comments: ModelStringInput
+    dateCreated: ModelStringInput
+    descriptionLong: ModelStringInput
+    descriptionShort: ModelStringInput
+    free: ModelBooleanInput
+    guid: ModelStringInput
+    id: ModelIDInput
+    idl: ModelStringInput
+    lastVersion: ModelStringInput
+    logoUrl: ModelStringInput
+    minCpu: ModelIntInput
+    minHdd: ModelFloatInput
+    minRam: ModelFloatInput
+    name: ModelStringInput
+    not: ModelComponentFilterInput
+    or: [ModelComponentFilterInput]
+    organizationID: ModelIDInput
+    owners: ModelIDInput
+    priceCurrency: ModelCurrencyInput
+    priceUnit: ModelPriceUnitInput
+    priceValue: ModelFloatInput
+    programLanguage: ModelStringInput
+    published: ModelBooleanInput
+    softwareList: ModelStringInput
+    supportInfo: ModelStringInput
+    tags: ModelStringInput
+    teamID: ModelIDInput
+    type: ModelTypeInput
+    useCategory: ModelUseCategoryInput
+    userCreated: ModelIDInput
+    versions: ModelStringInput
+}
+
+input ModelComponentSubscriptionConditionInput {
+    and: [ModelComponentSubscriptionConditionInput]
+    buyerOrganizationID: ModelIDInput
+    componentID: ModelIDInput
+    date: ModelStringInput
+    free: ModelBooleanInput
+    not: ModelComponentSubscriptionConditionInput
+    or: [ModelComponentSubscriptionConditionInput]
+    owners: ModelIDInput
+    priceCurrency: ModelCurrencyInput
+    priceUnit: ModelPriceUnitInput
+    priceValue: ModelFloatInput
+    sellerOrganizationID: ModelIDInput
+    user: ModelIDInput
+}
+
+input ModelComponentSubscriptionFilterInput {
+    and: [ModelComponentSubscriptionFilterInput]
+    buyerOrganizationID: ModelIDInput
+    componentID: ModelIDInput
+    date: ModelStringInput
+    free: ModelBooleanInput
+    id: ModelIDInput
+    not: ModelComponentSubscriptionFilterInput
+    or: [ModelComponentSubscriptionFilterInput]
+    owners: ModelIDInput
+    priceCurrency: ModelCurrencyInput
+    priceUnit: ModelPriceUnitInput
+    priceValue: ModelFloatInput
+    sellerOrganizationID: ModelIDInput
+    user: ModelIDInput
+}
+
+input ModelCurrencyInput {
+    eq: Currency
+    ne: Currency
+}
+
+input ModelFloatInput {
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
+    between: [Float]
+    eq: Float
+    ge: Float
+    gt: Float
+    le: Float
+    lt: Float
+    ne: Float
+}
+
+input ModelIDInput {
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
+    beginsWith: ID
+    between: [ID]
+    contains: ID
+    eq: ID
+    ge: ID
+    gt: ID
+    le: ID
+    lt: ID
+    ne: ID
+    notContains: ID
+    size: ModelSizeInput
+}
+
+input ModelIDKeyConditionInput {
+    beginsWith: ID
+    between: [ID]
+    eq: ID
+    ge: ID
+    gt: ID
+    le: ID
+    lt: ID
+}
+
+input ModelIntInput {
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
+    between: [Int]
+    eq: Int
+    ge: Int
+    gt: Int
+    le: Int
+    lt: Int
+    ne: Int
+}
+
+input ModelOrganizationConditionInput {
+    and: [ModelOrganizationConditionInput]
+    description: ModelStringInput
+    name: ModelStringInput
+    not: ModelOrganizationConditionInput
+    or: [ModelOrganizationConditionInput]
+    organizationID: ModelIDInput
+    owners: ModelIDInput
+}
+
+input ModelOrganizationFilterInput {
+    and: [ModelOrganizationFilterInput]
+    description: ModelStringInput
+    id: ModelIDInput
+    name: ModelStringInput
+    not: ModelOrganizationFilterInput
+    or: [ModelOrganizationFilterInput]
+    organizationID: ModelIDInput
+    owners: ModelIDInput
+}
+
+input ModelOsConditionInput {
+    and: [ModelOsConditionInput]
+    createdAt: ModelStringInput
+    name: ModelStringInput
+    not: ModelOsConditionInput
+    or: [ModelOsConditionInput]
+    updatedAt: ModelStringInput
+}
+
+input ModelOsFilterInput {
+    and: [ModelOsFilterInput]
+    createdAt: ModelStringInput
+    id: ModelIDInput
+    name: ModelStringInput
+    not: ModelOsFilterInput
+    or: [ModelOsFilterInput]
+    updatedAt: ModelStringInput
+}
+
+input ModelPriceUnitInput {
+    eq: PriceUnit
+    ne: PriceUnit
+}
+
+input ModelRoleConditionInput {
+    and: [ModelRoleConditionInput]
+    changeOwnerRights: ModelBooleanInput
+    createdAt: ModelStringInput
+    isOwner: ModelBooleanInput
+    manageComponentRights: ModelBooleanInput
+    manageUsersRights: ModelBooleanInput
+    name: ModelStringInput
+    not: ModelRoleConditionInput
+    or: [ModelRoleConditionInput]
+    organizationID: ModelIDInput
+    owners: ModelIDInput
+    publishRights: ModelBooleanInput
+    shareRights: ModelBooleanInput
+    status: ModelUserStatusInput
+    updatedAt: ModelStringInput
+    viewRights: ModelBooleanInput
+}
+
+input ModelRoleFilterInput {
+    and: [ModelRoleFilterInput]
+    changeOwnerRights: ModelBooleanInput
+    createdAt: ModelStringInput
+    id: ModelIDInput
+    isOwner: ModelBooleanInput
+    manageComponentRights: ModelBooleanInput
+    manageUsersRights: ModelBooleanInput
+    name: ModelStringInput
+    not: ModelRoleFilterInput
+    or: [ModelRoleFilterInput]
+    organizationID: ModelIDInput
+    owners: ModelIDInput
+    publishRights: ModelBooleanInput
+    shareRights: ModelBooleanInput
+    status: ModelUserStatusInput
+    updatedAt: ModelStringInput
+    viewRights: ModelBooleanInput
+}
+
+input ModelSizeInput {
+    between: [Int]
+    eq: Int
+    ge: Int
+    gt: Int
+    le: Int
+    lt: Int
+    ne: Int
+}
+
+input ModelStringInput {
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
+    beginsWith: String
+    between: [String]
+    contains: String
+    eq: String
+    ge: String
+    gt: String
+    le: String
+    lt: String
+    ne: String
+    notContains: String
+    size: ModelSizeInput
+}
+
+input ModelSubscriptionArchitectureFilterInput {
+    and: [ModelSubscriptionArchitectureFilterInput]
+    createdAt: ModelSubscriptionStringInput
+    id: ModelSubscriptionIDInput
+    name: ModelSubscriptionStringInput
+    or: [ModelSubscriptionArchitectureFilterInput]
+    updatedAt: ModelSubscriptionStringInput
+}
+
+input ModelSubscriptionBooleanInput {
+    eq: Boolean
+    ne: Boolean
+}
+
+input ModelSubscriptionComponentFilterInput {
+    and: [ModelSubscriptionComponentFilterInput]
+    certified: ModelSubscriptionBooleanInput
+    cloudList: ModelSubscriptionStringInput
+    comments: ModelSubscriptionStringInput
+    dateCreated: ModelSubscriptionStringInput
+    descriptionLong: ModelSubscriptionStringInput
+    descriptionShort: ModelSubscriptionStringInput
+    free: ModelSubscriptionBooleanInput
+    guid: ModelSubscriptionStringInput
+    id: ModelSubscriptionIDInput
+    idl: ModelSubscriptionStringInput
+    lastVersion: ModelSubscriptionStringInput
+    logoUrl: ModelSubscriptionStringInput
+    minCpu: ModelSubscriptionIntInput
+    minHdd: ModelSubscriptionFloatInput
+    minRam: ModelSubscriptionFloatInput
+    name: ModelSubscriptionStringInput
+    or: [ModelSubscriptionComponentFilterInput]
+    priceCurrency: ModelSubscriptionStringInput
+    priceUnit: ModelSubscriptionStringInput
+    priceValue: ModelSubscriptionFloatInput
+    programLanguage: ModelSubscriptionStringInput
+    published: ModelSubscriptionBooleanInput
+    softwareList: ModelSubscriptionStringInput
+    supportInfo: ModelSubscriptionStringInput
+    tags: ModelSubscriptionStringInput
+    teamID: ModelSubscriptionIDInput
+    type: ModelSubscriptionStringInput
+    useCategory: ModelSubscriptionStringInput
+    versions: ModelSubscriptionStringInput
+}
+
+input ModelSubscriptionComponentSubscriptionFilterInput {
+    and: [ModelSubscriptionComponentSubscriptionFilterInput]
+    componentID: ModelSubscriptionIDInput
+    date: ModelSubscriptionStringInput
+    free: ModelSubscriptionBooleanInput
+    id: ModelSubscriptionIDInput
+    or: [ModelSubscriptionComponentSubscriptionFilterInput]
+    priceCurrency: ModelSubscriptionStringInput
+    priceUnit: ModelSubscriptionStringInput
+    priceValue: ModelSubscriptionFloatInput
+    sellerOrganizationID: ModelSubscriptionIDInput
+    user: ModelSubscriptionIDInput
+}
+
+input ModelSubscriptionFloatInput {
+    between: [Float]
+    eq: Float
+    ge: Float
+    gt: Float
+    in: [Float]
+    le: Float
+    lt: Float
+    ne: Float
+    notIn: [Float]
+}
+
+input ModelSubscriptionIDInput {
+    beginsWith: ID
+    between: [ID]
+    contains: ID
+    eq: ID
+    ge: ID
+    gt: ID
+    in: [ID]
+    le: ID
+    lt: ID
+    ne: ID
+    notContains: ID
+    notIn: [ID]
+}
+
+input ModelSubscriptionIntInput {
+    between: [Int]
+    eq: Int
+    ge: Int
+    gt: Int
+    in: [Int]
+    le: Int
+    lt: Int
+    ne: Int
+    notIn: [Int]
+}
+
+input ModelSubscriptionOrganizationFilterInput {
+    and: [ModelSubscriptionOrganizationFilterInput]
+    description: ModelSubscriptionStringInput
+    id: ModelSubscriptionIDInput
+    name: ModelSubscriptionStringInput
+    or: [ModelSubscriptionOrganizationFilterInput]
+}
+
+input ModelSubscriptionOsFilterInput {
+    and: [ModelSubscriptionOsFilterInput]
+    createdAt: ModelSubscriptionStringInput
+    id: ModelSubscriptionIDInput
+    name: ModelSubscriptionStringInput
+    or: [ModelSubscriptionOsFilterInput]
+    updatedAt: ModelSubscriptionStringInput
+}
+
+input ModelSubscriptionRoleFilterInput {
+    and: [ModelSubscriptionRoleFilterInput]
+    changeOwnerRights: ModelSubscriptionBooleanInput
+    createdAt: ModelSubscriptionStringInput
+    id: ModelSubscriptionIDInput
+    isOwner: ModelSubscriptionBooleanInput
+    manageComponentRights: ModelSubscriptionBooleanInput
+    manageUsersRights: ModelSubscriptionBooleanInput
+    name: ModelSubscriptionStringInput
+    or: [ModelSubscriptionRoleFilterInput]
+    publishRights: ModelSubscriptionBooleanInput
+    shareRights: ModelSubscriptionBooleanInput
+    status: ModelSubscriptionStringInput
+    updatedAt: ModelSubscriptionStringInput
+    viewRights: ModelSubscriptionBooleanInput
+}
+
+input ModelSubscriptionStringInput {
+    beginsWith: String
+    between: [String]
+    contains: String
+    eq: String
+    ge: String
+    gt: String
+    in: [String]
+    le: String
+    lt: String
+    ne: String
+    notContains: String
+    notIn: [String]
+}
+
+input ModelSubscriptionTeamFilterInput {
+    admins: ModelSubscriptionStringInput
+    and: [ModelSubscriptionTeamFilterInput]
+    createdAt: ModelSubscriptionStringInput
+    description: ModelSubscriptionStringInput
+    id: ModelSubscriptionIDInput
+    isAdmin: ModelSubscriptionBooleanInput
+    logo: ModelSubscriptionStringInput
+    name: ModelSubscriptionStringInput
+    or: [ModelSubscriptionTeamFilterInput]
+    roles: ModelSubscriptionStringInput
+    teamAllowedComponentsIDs: ModelSubscriptionIDInput
+    updatedAt: ModelSubscriptionStringInput
+    users: ModelSubscriptionStringInput
+}
+
+input ModelSubscriptionUserFilterInput {
+    and: [ModelSubscriptionUserFilterInput]
+    backupEmail: ModelSubscriptionStringInput
+    createdAt: ModelSubscriptionStringInput
+    description: ModelSubscriptionStringInput
+    email: ModelSubscriptionStringInput
+    firstName: ModelSubscriptionStringInput
+    id: ModelSubscriptionIDInput
+    lastName: ModelSubscriptionStringInput
+    lastVisit: ModelSubscriptionStringInput
+    logo: ModelSubscriptionStringInput
+    name: ModelSubscriptionStringInput
+    or: [ModelSubscriptionUserFilterInput]
+    phone: ModelSubscriptionStringInput
+    status: ModelSubscriptionStringInput
+    teamID: ModelSubscriptionIDInput
+    teamsList: ModelSubscriptionIDInput
+    updatedAt: ModelSubscriptionStringInput
+    username: ModelSubscriptionStringInput
+    watchedComponents: ModelSubscriptionIDInput
+}
+
+input ModelTeamConditionInput {
+    admins: ModelStringInput
+    and: [ModelTeamConditionInput]
+    createdAt: ModelStringInput
+    description: ModelStringInput
+    isAdmin: ModelBooleanInput
+    logo: ModelStringInput
+    name: ModelStringInput
+    not: ModelTeamConditionInput
+    or: [ModelTeamConditionInput]
+    organizationID: ModelIDInput
+    owners: ModelIDInput
+    roles: ModelStringInput
+    teamAllowedComponentsIDs: ModelIDInput
+    updatedAt: ModelStringInput
+    users: ModelStringInput
+}
+
+input ModelTeamFilterInput {
+    admins: ModelStringInput
+    and: [ModelTeamFilterInput]
+    createdAt: ModelStringInput
+    description: ModelStringInput
+    id: ModelIDInput
+    isAdmin: ModelBooleanInput
+    logo: ModelStringInput
+    name: ModelStringInput
+    not: ModelTeamFilterInput
+    or: [ModelTeamFilterInput]
+    organizationID: ModelIDInput
+    owners: ModelIDInput
+    roles: ModelStringInput
+    teamAllowedComponentsIDs: ModelIDInput
+    updatedAt: ModelStringInput
+    users: ModelStringInput
+}
+
+input ModelTypeInput {
+    eq: Type
+    ne: Type
+}
+
+input ModelUseCategoryInput {
+    eq: UseCategory
+    ne: UseCategory
+}
+
+input ModelUserConditionInput {
+    and: [ModelUserConditionInput]
+    backupEmail: ModelStringInput
+    createdAt: ModelStringInput
+    description: ModelStringInput
+    email: ModelStringInput
+    firstName: ModelStringInput
+    lastName: ModelStringInput
+    lastVisit: ModelStringInput
+    logo: ModelStringInput
+    name: ModelStringInput
+    not: ModelUserConditionInput
+    or: [ModelUserConditionInput]
+    organizationID: ModelIDInput
+    owner: ModelIDInput
+    phone: ModelStringInput
+    status: ModelUserStatusInput
+    teamID: ModelIDInput
+    teamsList: ModelIDInput
+    updatedAt: ModelStringInput
+    username: ModelStringInput
+    watchedComponents: ModelIDInput
+}
+
+input ModelUserFilterInput {
+    and: [ModelUserFilterInput]
+    backupEmail: ModelStringInput
+    createdAt: ModelStringInput
+    description: ModelStringInput
+    email: ModelStringInput
+    firstName: ModelStringInput
+    id: ModelIDInput
+    lastName: ModelStringInput
+    lastVisit: ModelStringInput
+    logo: ModelStringInput
+    name: ModelStringInput
+    not: ModelUserFilterInput
+    or: [ModelUserFilterInput]
+    organizationID: ModelIDInput
+    owner: ModelIDInput
+    phone: ModelStringInput
+    status: ModelUserStatusInput
+    teamID: ModelIDInput
+    teamsList: ModelIDInput
+    updatedAt: ModelStringInput
+    username: ModelStringInput
+    watchedComponents: ModelIDInput
+}
+
+input ModelUserStatusInput {
+    eq: UserStatus
+    ne: UserStatus
+}
+
+input UpdateArchitectureInput {
+    createdAt: String
+    id: ID!
+    name: String
+    updatedAt: String
+}
+
+input UpdateComponentInput {
+    certified: Boolean
+    cloudList: String
+    comments: String
+    dateCreated: String
+    dependencies: [DependencyInput]
+    descriptionLong: String
+    descriptionShort: String
+    free: Boolean
+    guid: String
+    id: ID!
+    idl: String
+    lastVersion: String
+    logoUrl: String
+    minCpu: Int
+    minHdd: Float
+    minRam: Float
+    name: String
+    organizationID: ID
+    owners: [ID]
+    priceCurrency: Currency
+    priceUnit: PriceUnit
+    priceValue: Float
+    programLanguage: String
+    published: Boolean
+    softwareList: String
+    supportInfo: String
+    tags: String
+    teamID: ID
+    type: [Type]
+    useCategory: [UseCategory]
+    userCreated: ID
+    versions: String
+}
+
+input UpdateComponentSubscriptionInput {
+    buyerOrganizationID: ID
+    componentID: ID
+    date: String
+    free: Boolean
+    id: ID!
+    owners: [ID]
+    priceCurrency: Currency
+    priceUnit: PriceUnit
+    priceValue: Float
+    sellerOrganizationID: ID
+    user: ID
+}
+
+input UpdateOrganizationInput {
+    description: String
+    id: ID!
+    name: String
+    organizationID: ID
+    owners: [ID]
+}
+
+input UpdateOsInput {
+    createdAt: String
+    id: ID!
+    name: String
+    updatedAt: String
+}
+
+input UpdateRoleInput {
+    changeOwnerRights: Boolean
+    createdAt: String
+    id: ID!
+    isOwner: Boolean
+    manageComponentRights: Boolean
+    manageUsersRights: Boolean
+    name: String
+    organizationID: ID
+    owners: [ID]
+    publishRights: Boolean
+    shareRights: Boolean
+    status: UserStatus
+    updatedAt: String
+    viewRights: Boolean
+}
+
+input UpdateTeamInput {
+    admins: String
+    createdAt: String
+    description: String
+    id: ID!
+    isAdmin: Boolean
+    logo: String
+    name: String
+    organizationID: ID
+    owners: [ID]
+    roles: String
+    teamAllowedComponentsIDs: [ID]
+    updatedAt: String
+    users: String
+}
+
+input UpdateUserInput {
+    backupEmail: String
+    createdAt: String
+    description: String
+    email: String
+    firstName: String
+    id: ID!
+    lastName: String
+    lastVisit: String
+    logo: String
+    name: String
+    organizationID: ID
+    owner: ID
+    phone: String
+    status: UserStatus
+    teamID: ID
+    teamsList: [ID]
+    updatedAt: String
+    username: String
+    watchedComponents: [ID]
+}
+
+enum ModelSortDirection {
+    ASC
+    DESC
+}
+
+enum ModelAttributeTypes {
+    _null
+    binary
+    binarySet
+    bool
+    list
+    map
+    number
+    numberSet
+    string
+    stringSet
+}
